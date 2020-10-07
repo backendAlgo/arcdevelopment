@@ -113,6 +113,9 @@ const useStyles = makeStyles((theme) => ({
   tabButton: {
     opacity: 1,
   },
+  appbar: {
+    zIndex: theme.zIndex.modal + 1,
+  },
 }));
 
 //header-----
@@ -149,18 +152,18 @@ const Header = (props) => {
     </Button>
   );
   const pathController = [
-    { name: "home", link: "/", tabIndex: 0 },
+    { name: "Home", link: "/", tabIndex: 0 },
     {
-      name: "services",
+      name: "Services",
       link: "/services",
       tabIndex: 1,
       ariaOwns: anchorEl ? "simple-menu" : undefined,
       ariaHasPopUp: anchorEl ? true : undefined,
       onMouseOver: (event) => handleClick(event),
     },
-    { name: "the revolution", link: "/revolution", tabIndex: 2 },
-    { name: "about us", link: "/about", tabIndex: 3 },
-    { name: "contact us", link: "/contact", tabIndex: 4 },
+    { name: "The Revolution", link: "/revolution", tabIndex: 2 },
+    { name: "About Us", link: "/about", tabIndex: 3 },
+    { name: "Contact Us", link: "/contact", tabIndex: 4 },
     {
       name: tabButton,
       link: "/estimate",
@@ -217,7 +220,7 @@ const Header = (props) => {
       >
         {pathController.map((route, index) => (
           <Tab
-            key={index}
+            key={`tab-${index}`}
             className={
               route.classes === "tabButton"
                 ? `${classes.tab} ${classes.tabButton}`
@@ -240,6 +243,8 @@ const Header = (props) => {
         classes={{ paper: classes.menu }}
         MenuListProps={{ onMouseLeave: handleClose }}
         elevation={0}
+        keepMounted
+        style={{ zIndex: 1302 }}
       >
         {menuOptions.map((element, index) => {
           return (
@@ -279,6 +284,7 @@ const Header = (props) => {
         open={openDrawer}
         classes={{ paper: classes.drawer }}
       >
+        <div className={classes.toolbarMargin} />
         <List disablePadding>
           {pathController.map(
             (route, index) =>
@@ -346,7 +352,7 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <ElevationScroll>
-        <AppBar position="fixed">
+        <AppBar position="fixed" className={classes.appbar}>
           <Toolbar disableGutters>
             <Button
               component={Link}
